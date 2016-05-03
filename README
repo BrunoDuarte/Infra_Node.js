@@ -1,0 +1,26 @@
+
+Create a sample infra with three servers:
+2 - app servers
+1 - db
+
+Create /etc/Ansible/hosts with the following hosts:
+[app]
+192.168.60.4
+192.168.60.5
+
+# Database server
+[db]
+192.168.60.6
+
+# Group 'multi' with all servers
+[multi:children]
+app
+db
+
+Start up the infra in VirtualBox: 
+$ vagrant up
+
+Start up the Node.js application server:
+$ ansible-playbook repo.yml --sudo --extra-vars="node_apps_location=/usr/local/opt/node" --limit app
+
+Test on your browser using one of the app's ip.
